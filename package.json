@@ -1,0 +1,11 @@
+{
+  "name": "backend-phonebook",
+  "version": "0.0.1",
+  "description": "backend server for the phonebook exercise part3 fullstack open",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 1"
+  },
+  "author": "Luca-Divit",
+  "license": "MIT"
+}
