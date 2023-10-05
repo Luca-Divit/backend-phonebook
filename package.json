@@ -4,6 +4,7 @@
   "description": "backend server for the phonebook exercise part3 fullstack open",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"No tests yet\" && exit 1"
   },
   "author": "Luca-Divit",
