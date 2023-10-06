@@ -25,17 +25,27 @@ let persons = [
 ];
 
 app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>')
-})
+  response.send('<h1>Hello World!</h1>');
+});
 
 app.get('/api/phonebook', (request, response) => {
-  response.json(persons)
-})
+  response.json(persons);
+});
+
+app.get('/info', (request, response) => {
+  const peopleCount = persons.length;
+  const date = Date();
+  const layout = `
+    <p>Phonebook has info for ${peopleCount} people</p>
+    <p>${date}</p>
+  `
+  response.send(layout);
+});
 
 const PORT = 3001
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
 
 
 // console.log("hello world");
