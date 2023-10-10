@@ -34,13 +34,24 @@ app.get('/api/phonebook', (request, response) => {
 
 app.get('/info', (request, response) => {
   const peopleCount = persons.length;
-  const date = Date();
+  const date = new Date();
   const layout = `
     <p>Phonebook has info for ${peopleCount} people</p>
     <p>${date}</p>
   `
   response.send(layout);
 });
+
+app.get('/api/phonebook/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const person = persons.find(p => p.id === id);
+  if (person) {
+    response.json(person)
+  } else {
+    response.statusMessage = 'Person is not in the database'
+    response.status(404).end()
+  }
+})
 
 const PORT = 3001
 app.listen(PORT, () => {
