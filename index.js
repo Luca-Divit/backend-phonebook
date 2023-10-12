@@ -53,6 +53,18 @@ app.get('/api/phonebook/:id', (request, response) => {
   }
 })
 
+app.delete('/api/phonebook/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const person = persons.find(p => p.id === id);
+  if (person) {
+    persons = persons.filter(p => p.id !== id)
+    response.status(204).end()
+  } else {
+    response.statusMessage = 'This person does not exist in the database'
+    response.status(404).end()
+  }
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
