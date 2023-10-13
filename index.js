@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json())
+
 let persons = [
   {
     "id": 1,
@@ -51,7 +53,7 @@ app.get('/api/phonebook/:id', (request, response) => {
     response.statusMessage = 'Person is not in the database'
     response.status(404).end()
   }
-})
+});
 
 app.delete('/api/phonebook/:id', (request, response) => {
   const id = Number(request.params.id);
@@ -63,7 +65,21 @@ app.delete('/api/phonebook/:id', (request, response) => {
     response.statusMessage = 'This person does not exist in the database'
     response.status(404).end()
   }
-})
+});
+
+app.post('/api/phonebook', (request, response) => {
+  // Create random id using Math.random
+  const randId = Math.random() * 1000000;
+  // Get the data of the body of the request
+  const person = request.body;
+  // Assign the randId to the person
+  person.id = randId;
+  // Add the person to the phonebook
+  persons = persons.concat(person);
+  // console.log(person);
+  // Respond to the request sending the person back as json object
+  response.json(person);
+});
 
 const PORT = 3001
 app.listen(PORT, () => {
