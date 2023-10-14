@@ -3,7 +3,12 @@ const morgan = require('morgan');
 const app = express();
 
 app.use(express.json());
-app.use(morgan('tiny'));
+
+// Create a custom token for morgan middleware
+morgan.token('body', (req, res) => JSON.stringify(req.body))
+// Pass all the tokens including the custom one
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms - :body'))
+
 
 let persons = [
   {
