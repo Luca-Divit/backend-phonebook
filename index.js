@@ -68,17 +68,30 @@ app.delete('/api/phonebook/:id', (request, response) => {
 });
 
 app.post('/api/phonebook', (request, response) => {
+  // Get the data of the body of the request
+  const body = request.body;
+  // Return 400 if the request is missing some info
+  if (!body.name || !body.number) {
+    return response.status(400).json({
+      error: 'Missing info'
+    });
+  }
+  // Check if the name is already in the phonebook
+  const person = persons.find(p => p.name === body.name);
+  if (person) {
+    return response.status(400).json({
+      error: 'Person already in the phonebook'
+    });
+  }
   // Create random id using Math.random
   const randId = Math.random() * 1000000;
-  // Get the data of the body of the request
-  const person = request.body;
   // Assign the randId to the person
-  person.id = randId;
+  body.id = randId;
   // Add the person to the phonebook
-  persons = persons.concat(person);
+  persons = persons.concat(body);
   // console.log(person);
   // Respond to the request sending the person back as json object
-  response.json(person);
+  response.json(body);
 });
 
 const PORT = 3001
