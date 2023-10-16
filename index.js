@@ -1,8 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
 
+// Create body property in the request object
 app.use(express.json());
+
+// Allow cross-origin resource sharing
+app.use(cors());
+
 
 // Create a custom token for morgan middleware
 morgan.token('body', (req, res) => JSON.stringify(req.body))
